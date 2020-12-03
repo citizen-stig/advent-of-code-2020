@@ -42,8 +42,7 @@ fn three_numbers_product(data_set: &HashSet<i32>, target: i32) -> Option<i32> {
     for number in data_set {
         let second_part = target - number;
         let two_part = two_numbers(&data_set, second_part);
-        if two_part.is_some() {
-            let other_two = two_part.unwrap();
+        if let Some(other_two) = two_part {
             return Some(number * other_two.0 * other_two.1);
         }
     }

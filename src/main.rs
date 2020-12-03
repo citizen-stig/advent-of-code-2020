@@ -2,6 +2,7 @@ use std::env;
 
 mod day1;
 mod day2;
+mod day3;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -10,8 +11,11 @@ fn main() {
         println!("======= Day 1 ========");
         let day1_solution = day1::solve();
         println!("Solution for day 1: {:?} ", day1_solution);
+        println!("======= Day 2 ========");
+        let day2_solution = day2::solve();
+        println!("Solution for day 2: {:?} ", day2_solution);
     }
-    println!("======= Day 2 ========");
-    let day2_solution = day2::solve();
-    println!("Solution for day 1: {:?} ", day2_solution);
+    println!("======= Day 3 ========");
+    let day3_solution = day3::solve();
+    println!("Solution for day 3: {:?} ", day3_solution);
 }
