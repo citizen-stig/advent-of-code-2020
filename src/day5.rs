@@ -1,17 +1,36 @@
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 
-pub fn solve() -> u16 {
+pub fn solve() -> (usize, usize) {
     let filename = "input/day5.txt";
     let file = File::open(filename).unwrap();
     let reader = BufReader::new(file);
 
-    reader
+    let seats: Vec<usize> = reader
         .lines()
         .map(|line| find_seat(&line.unwrap()))
-        .map(|(row, column)| row as u16 * 8 + column as u16)
-        .max()
-        .unwrap()
+        .map(|(row, column)| row as usize * 8 + column as usize)
+        .collect();
+
+    let mut min: Option<usize> = None;
+    let mut max: Option<usize> = None;
+    let mut sum: usize = 0;
+    for seat_id in seats {
+        sum += seat_id;
+        if min.is_none() || min.gt(&Some(seat_id)) {
+            min = Some(seat_id);
+        }
+        if max.is_none() || max.lt(&Some(seat_id)) {
+            max = Some(seat_id);
+        }
+    }
+
+    let min = min.unwrap();
+    let max = max.unwrap();
+
+    let sum_without_gap: usize = (min..max + 1).sum();
+    let missed_id = sum_without_gap - sum;
+    (max, missed_id)
 }
 
 fn binary_partition(c: &char, min: u8, max: u8) -> (u8, u8) {
